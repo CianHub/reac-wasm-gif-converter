@@ -16,6 +16,37 @@
   background: black;
 }
 
+.content-loader {
+  margin-top: 3rem;
+  width: 30%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: black;
+}
+
+.loader-container {
+  width: 50vw;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 760px) {
+  .content-loader {
+    width: 80vw;
+  }
+}
+
+.loader {
+  width: 50% !important;
+  height: 50vh;
+}
+
 .conversion-form {
   display: flex;
   flex-direction: column;
