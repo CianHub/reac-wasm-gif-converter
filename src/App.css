@@ -16,10 +16,16 @@
   background: black;
 }
 
+@media only screen and (max-width: 760px) {
+  .content {
+    width: 90vw;
+  }
+}
+
 .content-loader {
   margin-top: 3rem;
   width: 30%;
-  height: 20vh;
+  height: 30vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,11 +33,22 @@
   background: black;
 }
 
+.MuiAppBar-colorPrimary {
+  background-color: transparent !important;
+}
+
+header {
+  box-shadow: none !important;
+}
+
+.MuiButton-containedPrimary {
+  background-color: #2274a5 !important;
+}
+
 .loader-container {
-  width: 50vw;
-  height: 20vh;
+  width: 60vw;
+  height: 50vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -78,7 +95,7 @@
 }
 
 .error-message {
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .button-row {

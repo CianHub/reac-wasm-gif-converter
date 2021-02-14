@@ -2,12 +2,19 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
-import { Button, CircularProgress } from '@material-ui/core';
+import {
+  AppBar,
+  Button,
+  IconButton,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Particles from 'react-particles-js';
+import MenuIcon from '@material-ui/icons/Menu';
 const ffmpeg = createFFmpeg();
 
 const getFileType = (fileType: string): string => fileType.split('/')[1];
@@ -80,193 +87,194 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="app">
-      <Particles
-        height="100%"
-        params={{
-          particles: {
-            number: {
-              value: 160,
-              density: {
+    <>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h5">
+            <b>GIF</b>Builder.me
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <div className="app">
+        <Particles
+          height="100%"
+          params={{
+            particles: {
+              number: {
+                value: 160,
+                density: {
+                  enable: false,
+                },
+              },
+              size: {
+                value: 3,
+                random: true,
+                anim: {
+                  speed: 4,
+                  size_min: 0.3,
+                },
+              },
+              line_linked: {
                 enable: false,
               },
-            },
-            size: {
-              value: 3,
-              random: true,
-              anim: {
-                speed: 4,
-                size_min: 0.3,
+              move: {
+                random: true,
+                speed: 1,
+                direction: 'top',
+                out_mode: 'out',
               },
             },
-            line_linked: {
-              enable: false,
-            },
-            move: {
-              random: true,
-              speed: 1,
-              direction: 'top',
-              out_mode: 'out',
-            },
-          },
-          interactivity: {
-            events: {
-              onhover: {
-                enable: true,
-                mode: 'bubble',
+            interactivity: {
+              events: {
+                onhover: {
+                  enable: true,
+                  mode: 'bubble',
+                },
+                onclick: {
+                  enable: true,
+                  mode: 'repulse',
+                },
               },
-              onclick: {
-                enable: true,
-                mode: 'repulse',
-              },
-            },
-            modes: {
-              bubble: {
-                distance: 250,
-                duration: 2,
-                size: 0,
-                opacity: 0,
-              },
-              repulse: {
-                distance: 400,
-                duration: 4,
+              modes: {
+                bubble: {
+                  distance: 250,
+                  duration: 2,
+                  size: 0,
+                  opacity: 0,
+                },
+                repulse: {
+                  distance: 400,
+                  duration: 4,
+                },
               },
             },
-          },
-        }}
-        style={{
-          position: 'fixed',
-          right: 0,
-          bottom: 0,
-          left: 0,
-          top: 0,
-          zIndex: -100,
-          height: '100vh',
-          margin: 0,
-          padding: 0,
-          width: '100%',
-          backgroundColor: '#212121',
-        }}
-      ></Particles>
-      {ready ? (
-        <Card className="content">
-          <CardContent>
-            {ready && (
-              <>
-                {' '}
-                <h1 className="heading">GIF it!</h1>
-                {!gif && (
-                  <>
-                    <h4 className="sub-heading">
-                      Please upload a a valid mp4, ogg or WebM file to convert
-                      it to a GIF.
-                    </h4>
-
-                    {video && (
-                      <div className="video-container">
-                        <h5 className="video-preview-label">Video Preview:</h5>
-                        <video
-                          className="video-preview"
-                          controls
-                          src={URL.createObjectURL(video)}
-                        ></video>
-                      </div>
-                    )}
-
-                    <form className="conversion-form">
-                      {!video && (
-                        <CardActions>
-                          <Button
-                            variant="contained"
-                            component="label"
-                            color="primary"
-                          >
-                            Upload File
-                            <input
-                              type="file"
-                              hidden
-                              onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>
-                              ) => handleVideoUpload(e)}
-                            />
-                          </Button>
-                        </CardActions>
-                      )}
-
-                      {showError && (
-                        <Alert severity="error" className="error-message">
-                          Upload failed 🤦. Please upload a valid{' '}
-                          <span>
-                            <i>mp4</i>
-                          </span>
-                          ,
-                          <span>
-                            <i>ogg</i>
-                          </span>{' '}
-                          or
-                          <span>
-                            <i>WebM</i>
-                          </span>{' '}
-                          file.
-                        </Alert>
-                      )}
+          }}
+          style={{
+            position: 'fixed',
+            right: 0,
+            bottom: 0,
+            left: 0,
+            top: 0,
+            zIndex: -100,
+            height: '100vh',
+            margin: 0,
+            padding: 0,
+            width: '100%',
+            backgroundColor: '#212121',
+          }}
+        ></Particles>
+        {ready ? (
+          <Card className="content">
+            <CardContent>
+              {ready && (
+                <>
+                  {' '}
+                  {showError && (
+                    <Alert severity="error" className="error-message">
+                      Upload failed 🤦. Please upload a valid{' '}
+                      <strong>mp4</strong>, <strong>ogg</strong> or
+                      <strong> WebM</strong> file.
+                    </Alert>
+                  )}
+                  <h1 className="heading">🔨 Lets build a GIF </h1>
+                  {!gif && (
+                    <>
+                      <h4 className="sub-heading">
+                        Please upload a valid <strong>.mp4</strong>,{' '}
+                        <strong>.ogg</strong> or
+                        <strong> .WebM</strong> file to convert it to a GIF.
+                      </h4>
 
                       {video && (
-                        <CardActions className="button-row">
-                          <Button
-                            className="app-button"
-                            variant="contained"
-                            onClick={convertToGif}
-                            color="primary"
-                          >
-                            Convert To GIF
-                          </Button>
-                          <Button
-                            variant="contained"
-                            component="label"
-                            className="app-button"
-                          >
-                            Change File
-                            <input
-                              type="file"
-                              hidden
-                              onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>
-                              ) => handleVideoUpload(e)}
-                            />
-                          </Button>
-                        </CardActions>
+                        <div className="video-container">
+                          <h5 className="video-preview-label">
+                            Video Preview:
+                          </h5>
+                          <video
+                            className="video-preview"
+                            controls
+                            src={URL.createObjectURL(video)}
+                          ></video>
+                        </div>
                       )}
-                    </form>
-                  </>
-                )}
-                {gif && (
-                  <div className="converted-gif-container">
-                    <h3 className="success-text">
-                      🌟 Here's your GIF, be sure to 💾 it!🌟
-                    </h3>
-                    <img
-                      src={gif}
-                      alt="converted gif"
-                      className="converted-gif"
-                    />
-                  </div>
-                )}{' '}
-              </>
-            )}
-          </CardContent>
-        </Card>
-      ) : (
-        <Card className="content-loader">
-          <CardContent>
-            <div className="loader-container">
-              <h1 className="heading">Loading...⌛</h1>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-      ;{' '}
-    </div>
+
+                      <form className="conversion-form">
+                        {!video && (
+                          <CardActions>
+                            <Button
+                              variant="contained"
+                              component="label"
+                              color="primary"
+                            >
+                              Upload File
+                              <input
+                                type="file"
+                                hidden
+                                onChange={(
+                                  e: React.ChangeEvent<HTMLInputElement>
+                                ) => handleVideoUpload(e)}
+                              />
+                            </Button>
+                          </CardActions>
+                        )}
+
+                        {video && (
+                          <CardActions className="button-row">
+                            <Button
+                              className="app-button"
+                              variant="contained"
+                              onClick={convertToGif}
+                              color="primary"
+                            >
+                              Convert To GIF
+                            </Button>
+                            <Button
+                              variant="contained"
+                              component="label"
+                              className="app-button"
+                            >
+                              Change File
+                              <input
+                                type="file"
+                                hidden
+                                onChange={(
+                                  e: React.ChangeEvent<HTMLInputElement>
+                                ) => handleVideoUpload(e)}
+                              />
+                            </Button>
+                          </CardActions>
+                        )}
+                      </form>
+                    </>
+                  )}
+                  {gif && (
+                    <div className="converted-gif-container">
+                      <h3 className="success-text">
+                        🌟 Done. Here's your GIF!🌟
+                      </h3>
+                      <img
+                        src={gif}
+                        alt="converted gif"
+                        className="converted-gif"
+                      />
+                    </div>
+                  )}{' '}
+                </>
+              )}
+            </CardContent>
+          </Card>
+        ) : (
+          <Card className="content-loader">
+            <CardContent>
+              <div className="loader-container">
+                <h1 className="heading">Loading...⌛</h1>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+        ;{' '}
+      </div>{' '}
+    </>
   );
 };
 
