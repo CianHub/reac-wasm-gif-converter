@@ -176,7 +176,7 @@ const App: React.FC = () => {
                       <strong> WebM</strong> file.
                     </Alert>
                   )}
-                  <h1 className="heading">🔨 Lets build a GIF </h1>
+                  <h1 className="heading">🔨 Lets build a GIF 🔨</h1>
                   {!gif && (
                     <>
                       <h4 className="sub-heading">
