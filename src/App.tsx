@@ -2,19 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
-import {
-  AppBar,
-  Button,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
+import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Particles from 'react-particles-js';
-import MenuIcon from '@material-ui/icons/Menu';
 const ffmpeg = createFFmpeg();
 
 const getFileType = (fileType: string): string => fileType.split('/')[1];
@@ -97,11 +90,12 @@ const App: React.FC = () => {
       </AppBar>
       <div className="app">
         <Particles
+          className="particle"
           height="100%"
           params={{
             particles: {
               number: {
-                value: 160,
+                value: 30,
                 density: {
                   enable: false,
                 },
@@ -271,8 +265,7 @@ const App: React.FC = () => {
               </div>
             </CardContent>
           </Card>
-        )}
-        ;{' '}
+        )}{' '}
       </div>{' '}
     </>
   );
